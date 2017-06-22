@@ -1,31 +1,18 @@
-# ISC17 Understanding and Improving I/O Performance
-This repository contains the slides and exercises for the ISC17 tutorial on understanding and improving I/O performance.
+#piom-benchmark
+The repository contains benchmark code for Parallel I/O models.  These are different ways of doing I/O from a parallel program (i.e. master I/O, individual files, collective MPI-I/O calls, etc...).
 
-This contains material contributed from a number of authors and organsations, including:
+We have implemented the I/O models in both C and Fortran, to enable comparison of both programming languages.  We have also provided example submission scripts, designed to work on ARCHER (a Cray XC30 system).
+
+This contains material contributed from a number of authors, including:
 
 * Adrian Jackson, EPCC,
-* Tomislav Šubic, ARCTUR
-* Muhammad Sarim Zafar, TU Dresden
-* Keeran Barabazon, ARM/Allinea  
+* David Henty, EPCC
 
-## Timetable
+## Structure
+The repository has the following directory structure:
+* C: The C source code
+* F: The Fortran source code
+* mkdata:  A code to generate input files for the benchmark
 
-* 09.00 Large scale computing system I/O hardware and software libraries
-* 09.45 Systemwide performance and implications
-* 11.00 Break
-* 11.30 Systemwide data and benchmarking practical
-* 12.15 Parallel I/O strategies and libraries
-* 13.00 Lunch
-* 14.00 Parallel I/O practical
-* 15.00 Profiling application I/O
-* 16.00 Break
-* 16.30 Hands on Profiling
-* 17.30 Summary and discussion
 
-## Running
-
-* Host name is: login.archer.ac.uk
-* To submit use: qsub -R4578901 submissionscript.pbs 
-** Replace submissionscript.pbs with the sensible script
-* Do everything from the work filesystem rather than home, i.e. cd /work/d131/d131/ngioXX
 
