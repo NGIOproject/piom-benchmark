@@ -14,9 +14,11 @@ READALL_VEC=mpiio_readall_vector
 READALL_SUB=mpiio_readall_subarray
 SUB_READ_VEC=mpiio_sub_read_vector
 SUB_READALL_VEC=mpiio_sub_readall_vector
+SUB_READ_SUB=mpiio_sub_read_subarray
+SUB_READALL_SUB=mpiio_sub_readall_subarray
 INDIVID=mpiio_individual
 
-all: $(SSEND) $(BCAST) $(MASTER_VEC) $(MASTER_SUB) $(READ_VEC) $(READ_SUB) $(READALL_SUB) $(READALL_VEC) $(SUB_READ_VEC) $(SUB_READALL_VEC) $(INDIVID)
+all: $(SSEND) $(BCAST) $(MASTER_VEC) $(MASTER_SUB) $(READ_VEC) $(READ_SUB) $(READALL_SUB) $(READALL_VEC) $(SUB_READ_VEC) $(SUB_READALL_VEC) $(SUB_READ_SUB) $(SUB_READALL_SUB) $(INDIVID)
 
 .PHONY:all
 
@@ -56,5 +58,12 @@ $(SUB_READ_VEC): $(OBJ) $(SUB_READ_VEC).o
 $(SUB_READALL_VEC): $(OBJ) $(SUB_READALL_VEC).o
 	$(CC) -o $@ $@.o $(OBJ) $(CFLAGS)
 
+$(SUB_READ_SUB): $(OBJ) $(SUB_READ_SUB).o
+	$(CC) -o $@ $@.o $(OBJ) $(CFLAGS)
+
+$(SUB_READALL_SUB): $(OBJ) $(SUB_READALL_SUB).o
+	$(CC) -o $@ $@.o $(OBJ) $(CFLAGS)
+
+
 clean:
-	rm -fr *.o core* $(SSEND) $(BCAST) $(MASTER_VEC) $(MASTER_SUB) $(READ_VEC) $(READ_SUB) $(READALL_SUB) $(READALL_VEC) $(SUB_READ_VEC) $(SUB_READALL_VEC) $(INDIVID)
+	rm -fr *.o core* $(SSEND) $(BCAST) $(MASTER_VEC) $(MASTER_SUB) $(READ_VEC) $(READ_SUB) $(READALL_SUB) $(READALL_VEC) $(SUB_READ_VEC) $(SUB_READALL_VEC) $(SUB_READ_SUB) $(SUB_READALL_SUB) $(INDIVID)

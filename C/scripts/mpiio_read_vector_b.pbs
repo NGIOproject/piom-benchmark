@@ -1,0 +1,28 @@
+#!/bin/bash --login
+
+# PBS job options (name, compute nodes, job time)
+#PBS -l select=1
+#PBS -l walltime=00:05:00
+#PBS -A d131
+#PBS -N read_vec_b
+
+# Change to the directory that the job was submitted from
+# (remember this should be on the /work filesystem)
+cd $PBS_O_WORKDIR
+
+NPROCS=24
+XPROCS=6
+YPROCS=4
+BARRIER=1
+
+echo "4 stripes"
+aprun -n $NPROCS ./mpiio_read_vector /work/d131/d131/shared/data/defstriped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+echo "max stripes"
+aprun -n $NPROCS ./mpiio_read_vector /work/d131/d131/shared/data/striped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+
+XPROCS=8
+YPROCS=3
+
+echo "max stripes"
+aprun -n $NPROCS ./mpiio_read_vector /work/d131/d131/shared/data/striped/cinput0160000x0072000.dat 160000 72000 $XPROCS $YPROCS $BARRIER
+ 
