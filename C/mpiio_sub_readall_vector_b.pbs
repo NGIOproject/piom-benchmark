@@ -1,0 +1,20 @@
+#!/bin/bash --login
+
+# PBS job options (name, compute nodes, job time)
+#PBS -l select=1
+#PBS -l walltime=00:20:00
+#PBS -A d131
+#PBS -N sub_ra_vec_b
+
+# Change to the directory that the job was submitted from
+# (remember this should be on the /work filesystem)
+cd $PBS_O_WORKDIR
+
+# Launch the parallel job using 24 processes
+echo "4 stripes"
+aprun -n 24 ./mpiio_sub_readall_vector /work/d131/d131/shared/data/defstriped/cinput0048000x0021600.dat 48000 21600 6 4 1 12
+echo "max stripes"
+aprun -n 24 ./mpiio_sub_readall_vector /work/d131/d131/shared/data/striped/cinput0048000x0021600.dat 48000 21600 6 4 1 12
+echo "max stripes"
+aprun -n 24 ./mpiio_sub_readall_vector /work/d131/d131/shared/data/striped/cinput0160000x0072000.dat 160000 72000 8 3 1 12
+  

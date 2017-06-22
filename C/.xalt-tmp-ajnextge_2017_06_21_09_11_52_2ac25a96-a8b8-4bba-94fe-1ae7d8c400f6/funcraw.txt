@@ -1,0 +1,2 @@
+/usr/lib64//crt1.o: In function `_start':
+/usr/src/packages/BUILD/glibc-2.11.3/csu/../sysdeps/x86_64/elf/start.S:109: undefined reference to `main'
