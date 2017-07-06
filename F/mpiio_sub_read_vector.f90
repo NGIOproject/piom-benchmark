@@ -47,7 +47,7 @@ program mpiio
 
   real, dimension(:,:), allocatable :: x
 
-  integer :: rank, size, ierr
+  integer :: rank, size, ierr, barrier
   integer :: i, j
 
   character*(maxfilename) :: filename
@@ -71,7 +71,7 @@ program mpiio
   call MPI_COMM_SIZE(comm, size, ierr)
   call MPI_COMM_RANK(comm, rank, ierr)
 
-  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, size, rank)
+  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, barrier, size, rank)
 
   allocate(pcoords(ndim,size))
   allocate(x(nxp,nyp))
@@ -103,6 +103,10 @@ program mpiio
 !
 
   call initarray(x,   nxp, nyp)
+
+  if(barrier .eq. 1) then
+     call MPI_Barrier(comm, ierr)
+  end if
 
   starttime = mpi_wtime()
 
@@ -143,7 +147,10 @@ program mpiio
 
   call MPI_TYPE_SIZE(MPI_REAL, realsize, ierr)
 
-  disp = (jstart*nx + istart)*realsize
+  disp = jstart
+  disp = disp*nx 
+  disp = disp + istart
+  disp = disp*realsize
 
   call MPI_FILE_SET_VIEW(fh, disp, MPI_REAL, my_mpi_vector, 'native', &
                          MPI_INFO_NULL, ierr)

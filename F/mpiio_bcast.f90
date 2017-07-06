@@ -48,7 +48,7 @@ program mpiio
   real, dimension(:,:), allocatable :: buf
   real, dimension(:,:), allocatable :: x
 
-  integer :: rank, size, ierr
+  integer :: rank, size, ierr, barrier
   integer :: i, j
 
   integer :: istart, jstart
@@ -64,7 +64,7 @@ program mpiio
   call MPI_COMM_SIZE(comm, size, ierr)
   call MPI_COMM_RANK(comm, rank, ierr)
 
-  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, size, rank)
+  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, barrier, size, rank)
 
   allocate(pcoords(ndim,size))
   allocate(buf(nx,ny))
@@ -98,6 +98,10 @@ program mpiio
 
   call initarray(buf, nx,  ny )
   call initarray(x,   nxp, nyp)
+
+  if(barrier .eq. 1) then
+     call MPI_Barrier(comm, ierr)
+  end if
 
   starttime = mpi_wtime()
 

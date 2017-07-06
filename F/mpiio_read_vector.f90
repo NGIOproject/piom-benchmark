@@ -59,7 +59,7 @@ program mpiio
 !
 
   integer, dimension(MPI_STATUS_SIZE) :: status
-  integer :: count, blocklength, stride, istart, jstart
+  integer :: count, blocklength, stride, istart, jstart, barrier
   integer :: realsize
   integer :: my_mpi_vector, fh
   integer (kind=MPI_OFFSET_KIND) :: disp = 0
@@ -71,7 +71,7 @@ program mpiio
   call MPI_COMM_SIZE(comm, size, ierr)
   call MPI_COMM_RANK(comm, rank, ierr)
 
-  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, size, rank)
+  call checkandgetarguments(filename, maxfilename, nx, ny, xprocs, yprocs, nxp, nyp, barrier, size, rank)
 
   allocate(pcoords(ndim,size))
   allocate(x(nxp,nyp))
@@ -103,6 +103,10 @@ program mpiio
 !
 
   call initarray(x,   nxp, nyp)
+
+  if(barrier .eq. 1) then
+     call MPI_Barrier(comm, ierr)
+  end if
 
   starttime = mpi_wtime()
 
