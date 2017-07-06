@@ -4,7 +4,7 @@
 #PBS -l select=22
 #PBS -l walltime=00:05:00
 #PBS -A d131
-#PBS -N sub_rall_sub
+#PBS -N sub_rall_sub_nb
 
 # Change to the directory that the job was submitted from
 # (remember this should be on the /work filesystem)
@@ -13,7 +13,7 @@ cd $PBS_O_WORKDIR
 NPROCS=512
 XPROCS=32
 YPROCS=16
-BARRIER=1
+BARRIER=0
 IOWORKERS=256
 
 echo "4 stripes"
