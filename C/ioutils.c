@@ -11,8 +11,8 @@ void checkandgetargumentssub(int argc, char **argv, int *nx, int *ny, int *xproc
   if ( argc != 8 ){
     /* We print argv[0] assuming it is the program name */
     if(rank == 0){
-      printf("usage: %s filename nx ny xprocs yproc barrier numio", argv[0] );
-      printf("This application expects you to provide the input file now, the size of the input data set (nx*ny), the number of processes you want in each dimension (xproc and yproc),  and whether to use a barrier before timing (barrier, 0 is no barrier, 1 uses a barrier), the number of I/O workers you want (numio)\n");
+      printf("usage: %s filename nx ny xprocs yprocs barrier numio", argv[0] );
+      printf("This application expects you to provide the input file now, the size of the input data set (nx*ny), the number of processes you want in each dimension (xproc and yproc), and whether to use a barrier before timing (barrier, 0 is no barrier, 1 uses a barrier), the number of I/O workers you want (numio)\n");
     }
     MPI_Finalize();
     exit(-1);
@@ -54,7 +54,7 @@ void checkandgetarguments(int argc, char **argv, int *nx, int *ny, int *xprocs, 
   if ( argc != 7 ){
     /* We print argv[0] assuming it is the program name */
     if(rank == 0){
-      printf("usage: %s filename nx ny xprocs yproc", argv[0] );
+      printf("usage: %s filename nx ny xprocs yprocs barrier", argv[0] );
       printf("This application expects you to provide the input file now, the size of the input data set (nx*ny), the number of processes you want in each dimension (xproc and yproc), and whether to use a barrier before timing (barrier, 0 is no barrier, 1 uses a barrier)\n");
     }
     MPI_Finalize();

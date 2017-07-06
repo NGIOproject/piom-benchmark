@@ -169,6 +169,7 @@ int main(int argc, char **argv){
 
   dotimings(totaltime, rank, size);
 
+  MPI_Type_free(&my_mpi_vector);
   MPI_Finalize();
   free(x);
   free(pcoords);
