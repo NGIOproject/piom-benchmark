@@ -1,0 +1,28 @@
+#!/bin/bash --login
+
+# PBS job options (name, compute nodes, job time)
+#PBS -l select=22
+#PBS -l walltime=00:05:00
+#PBS -A d131
+#PBS -N  mas_sub_nb
+
+# Change to the directory that the job was submitted from
+# (remember this should be on the /work filesystem)
+cd $PBS_O_WORKDIR
+
+NPROCS=512
+XPROCS=32
+YPROCS=16
+BARRIER=0
+
+echo "4 stripes"
+aprun -n $NPROCS ./mpiio_master_subarray /work/d131/d131/shared/data/defstriped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+echo "max stripes"
+aprun -n $NPROCS ./mpiio_master_subarray /work/d131/d131/shared/data/striped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+
+XPROCS=32
+YPROCS=16
+
+echo "max stripes"
+aprun -n $NPROCS ./mpiio_master_subarray /work/d131/d131/shared/data/striped/cinput0160000x0072000.dat 160000 72000 $XPROCS $YPROCS $BARRIER
+

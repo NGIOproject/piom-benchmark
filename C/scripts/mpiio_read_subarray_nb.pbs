@@ -4,7 +4,7 @@
 #PBS -l select=22
 #PBS -l walltime=00:05:00
 #PBS -A d131
-#PBS -N read_vec_nb
+#PBS -N read_sub_nb
 
 # Change to the directory that the job was submitted from
 # (remember this should be on the /work filesystem)
@@ -16,9 +16,9 @@ YPROCS=16
 BARRIER=0
 
 echo "4 stripes"
-aprun -n $NPROCS ./mpiio_read_vector /work/d131/d131/shared/data/defstriped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+aprun -n $NPROCS ./mpiio_read_subarray /work/d131/d131/shared/data/defstriped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
 echo "max stripes"
-aprun -n $NPROCS ./mpiio_read_vector /work/d131/d131/shared/data/striped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
+aprun -n $NPROCS ./mpiio_read_subarray /work/d131/d131/shared/data/striped/cinput0048000x0021600.dat 48000 21600 $XPROCS $YPROCS $BARRIER
 
 XPROCS=32
 YPROCS=16
